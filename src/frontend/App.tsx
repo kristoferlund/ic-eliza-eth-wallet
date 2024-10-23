@@ -22,20 +22,17 @@ export default function App() {
 
     <div className="links">
       <a
-        href="https://github.com/kristoferlund/ic-alloy-basic-eth-frontend"
+        href="https://github.com/ic-alloy/ic-alloy-basic-wallet"
         target="_blank" rel="noreferrer"
       >
-        <img src="https://img.shields.io/github/license/kristoferlund/ic-alloy-basic-eth-frontend" />
+        <img src="https://img.shields.io/github/license/ic-alloy-basic-wallet/ic-alloy-basic-wallet" />
       </a>
 
       <a
-        href="https://github.com/kristoferlund/ic-alloy-basic-eth-frontend"
+        href="https://github.com/ic-alloy/ic-alloy-basic-wallet"
         target="_blank" rel="noreferrer"
       >
-        <img src="https://img.shields.io/github/stars/kristoferlund/ic-alloy-basic-eth-frontend" />
-      </a>
-      <a href="https://github.com/kristoferlund" target="_blank" rel="noreferrer">
-        <img src="https://img.shields.io/github/followers/kristoferlund" />
+        <img src="https://img.shields.io/github/stars/ic-alloy/ic-alloy-basic-wallet" />
       </a>
     </div>
   </main>
