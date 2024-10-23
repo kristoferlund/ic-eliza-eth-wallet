@@ -163,6 +163,19 @@ dfx canister call backend send_eth '("0xa32aECda752cF4EF89956e83d60C04835d4FA867
 ## Contributors
 
 <!-- readme: collaborators,contributors -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/kristoferlund">
+                    <img src="https://avatars.githubusercontent.com/u/9698363?v=4" width="100;" alt="kristoferlund"/>
+                    <br />
+                    <sub><b>Kristofer</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
 <!-- readme: collaborators,contributors -end -->
 
 ## License
