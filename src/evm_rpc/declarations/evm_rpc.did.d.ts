@@ -2,6 +2,10 @@ import type { Principal } from '@dfinity/principal';
 import type { ActorMethod } from '@dfinity/agent';
 import type { IDL } from '@dfinity/candid';
 
+export interface AccessListEntry {
+  'storageKeys' : Array<string>,
+  'address' : string,
+}
 export interface Block {
   'miner' : string,
   'totalDifficulty' : [] | [bigint],
@@ -31,9 +35,15 @@ export type BlockTag = { 'Earliest' : null } |
   { 'Latest' : null } |
   { 'Number' : bigint } |
   { 'Pending' : null };
+export interface CallArgs {
+  'transaction' : TransactionRequest,
+  'block' : [] | [BlockTag],
+}
+export type CallResult = { 'Ok' : string } |
+  { 'Err' : RpcError };
 export type ChainId = bigint;
 export type ConsensusStrategy = { 'Equality' : null } |
-  { 'Threshold' : { 'min' : bigint, 'total' : [] | [bigint] } };
+  { 'Threshold' : { 'min' : number, 'total' : [] | [number] } };
 export type EthMainnetService = { 'Alchemy' : null } |
   { 'Llama' : null } |
   { 'BlockPi' : null } |
@@ -123,6 +133,8 @@ export interface Metrics {
   'errHttpOutcall' : Array<[[string, string], bigint]>,
   'errHostNotAllowed' : Array<[string, bigint]>,
 }
+export type MultiCallResult = { 'Consistent' : CallResult } |
+  { 'Inconsistent' : Array<[RpcService, CallResult]> };
 export type MultiFeeHistoryResult = { 'Consistent' : FeeHistoryResult } |
   { 'Inconsistent' : Array<[RpcService, FeeHistoryResult]> };
 export type MultiGetBlockByNumberResult = {
@@ -205,8 +217,8 @@ export type SendRawTransactionStatus = { 'Ok' : [] | [string] } |
   { 'InsufficientFunds' : null };
 export type Topic = Array<string>;
 export interface TransactionReceipt {
-  'to' : string,
-  'status' : bigint,
+  'to' : [] | [string],
+  'status' : [] | [bigint],
   'transactionHash' : string,
   'blockNumber' : bigint,
   'from' : string,
@@ -219,13 +231,30 @@ export interface TransactionReceipt {
   'contractAddress' : [] | [string],
   'gasUsed' : bigint,
 }
-export type ValidationError = { 'CredentialPathNotAllowed' : null } |
-  { 'HostNotAllowed' : string } |
-  { 'CredentialHeaderNotAllowed' : null } |
-  { 'UrlParseError' : string } |
-  { 'Custom' : string } |
+export interface TransactionRequest {
+  'to' : [] | [string],
+  'gas' : [] | [bigint],
+  'maxFeePerGas' : [] | [bigint],
+  'gasPrice' : [] | [bigint],
+  'value' : [] | [bigint],
+  'maxFeePerBlobGas' : [] | [bigint],
+  'from' : [] | [string],
+  'type' : [] | [string],
+  'accessList' : [] | [Array<AccessListEntry>],
+  'nonce' : [] | [bigint],
+  'maxPriorityFeePerGas' : [] | [bigint],
+  'blobs' : [] | [Array<string>],
+  'input' : [] | [string],
+  'chainId' : [] | [bigint],
+  'blobVersionedHashes' : [] | [Array<string>],
+}
+export type ValidationError = { 'Custom' : string } |
   { 'InvalidHex' : string };
 export interface _SERVICE {
+  'eth_call' : ActorMethod<
+    [RpcServices, [] | [RpcConfig], CallArgs],
+    MultiCallResult
+  >,
   'eth_feeHistory' : ActorMethod<
     [RpcServices, [] | [RpcConfig], FeeHistoryArgs],
     MultiFeeHistoryResult

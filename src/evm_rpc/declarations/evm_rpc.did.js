@@ -52,11 +52,32 @@ export const idlFactory = ({ IDL }) => {
   });
   const ConsensusStrategy = IDL.Variant({
     'Equality' : IDL.Null,
-    'Threshold' : IDL.Record({ 'min' : IDL.Nat, 'total' : IDL.Opt(IDL.Nat) }),
+    'Threshold' : IDL.Record({ 'min' : IDL.Nat8, 'total' : IDL.Opt(IDL.Nat8) }),
   });
   const RpcConfig = IDL.Record({
     'responseConsensus' : IDL.Opt(ConsensusStrategy),
     'responseSizeEstimate' : IDL.Opt(IDL.Nat64),
+  });
+  const AccessListEntry = IDL.Record({
+    'storageKeys' : IDL.Vec(IDL.Text),
+    'address' : IDL.Text,
+  });
+  const TransactionRequest = IDL.Record({
+    'to' : IDL.Opt(IDL.Text),
+    'gas' : IDL.Opt(IDL.Nat),
+    'maxFeePerGas' : IDL.Opt(IDL.Nat),
+    'gasPrice' : IDL.Opt(IDL.Nat),
+    'value' : IDL.Opt(IDL.Nat),
+    'maxFeePerBlobGas' : IDL.Opt(IDL.Nat),
+    'from' : IDL.Opt(IDL.Text),
+    'type' : IDL.Opt(IDL.Text),
+    'accessList' : IDL.Opt(IDL.Vec(AccessListEntry)),
+    'nonce' : IDL.Opt(IDL.Nat),
+    'maxPriorityFeePerGas' : IDL.Opt(IDL.Nat),
+    'blobs' : IDL.Opt(IDL.Vec(IDL.Text)),
+    'input' : IDL.Opt(IDL.Text),
+    'chainId' : IDL.Opt(IDL.Nat),
+    'blobVersionedHashes' : IDL.Opt(IDL.Vec(IDL.Text)),
   });
   const BlockTag = IDL.Variant({
     'Earliest' : IDL.Null,
@@ -66,16 +87,9 @@ export const idlFactory = ({ IDL }) => {
     'Number' : IDL.Nat,
     'Pending' : IDL.Null,
   });
-  const FeeHistoryArgs = IDL.Record({
-    'blockCount' : IDL.Nat,
-    'newestBlock' : BlockTag,
-    'rewardPercentiles' : IDL.Opt(IDL.Vec(IDL.Nat8)),
-  });
-  const FeeHistory = IDL.Record({
-    'reward' : IDL.Vec(IDL.Vec(IDL.Nat)),
-    'gasUsedRatio' : IDL.Vec(IDL.Float64),
-    'oldestBlock' : IDL.Nat,
-    'baseFeePerGas' : IDL.Vec(IDL.Nat),
+  const CallArgs = IDL.Record({
+    'transaction' : TransactionRequest,
+    'block' : IDL.Opt(BlockTag),
   });
   const JsonRpcError = IDL.Record({ 'code' : IDL.Int64, 'message' : IDL.Text });
   const ProviderError = IDL.Variant({
@@ -86,10 +100,6 @@ export const idlFactory = ({ IDL }) => {
     'NoPermission' : IDL.Null,
   });
   const ValidationError = IDL.Variant({
-    'CredentialPathNotAllowed' : IDL.Null,
-    'HostNotAllowed' : IDL.Text,
-    'CredentialHeaderNotAllowed' : IDL.Null,
-    'UrlParseError' : IDL.Text,
     'Custom' : IDL.Text,
     'InvalidHex' : IDL.Text,
   });
@@ -116,7 +126,7 @@ export const idlFactory = ({ IDL }) => {
     'ValidationError' : ValidationError,
     'HttpOutcallError' : HttpOutcallError,
   });
-  const FeeHistoryResult = IDL.Variant({ 'Ok' : FeeHistory, 'Err' : RpcError });
+  const CallResult = IDL.Variant({ 'Ok' : IDL.Text, 'Err' : RpcError });
   const ProviderId = IDL.Nat64;
   const RpcService = IDL.Variant({
     'EthSepolia' : EthSepoliaService,
@@ -127,6 +137,22 @@ export const idlFactory = ({ IDL }) => {
     'EthMainnet' : EthMainnetService,
     'Provider' : ProviderId,
   });
+  const MultiCallResult = IDL.Variant({
+    'Consistent' : CallResult,
+    'Inconsistent' : IDL.Vec(IDL.Tuple(RpcService, CallResult)),
+  });
+  const FeeHistoryArgs = IDL.Record({
+    'blockCount' : IDL.Nat,
+    'newestBlock' : BlockTag,
+    'rewardPercentiles' : IDL.Opt(IDL.Vec(IDL.Nat8)),
+  });
+  const FeeHistory = IDL.Record({
+    'reward' : IDL.Vec(IDL.Vec(IDL.Nat)),
+    'gasUsedRatio' : IDL.Vec(IDL.Float64),
+    'oldestBlock' : IDL.Nat,
+    'baseFeePerGas' : IDL.Vec(IDL.Nat),
+  });
+  const FeeHistoryResult = IDL.Variant({ 'Ok' : FeeHistory, 'Err' : RpcError });
   const MultiFeeHistoryResult = IDL.Variant({
     'Consistent' : FeeHistoryResult,
     'Inconsistent' : IDL.Vec(IDL.Tuple(RpcService, FeeHistoryResult)),
@@ -201,8 +227,8 @@ export const idlFactory = ({ IDL }) => {
     'Inconsistent' : IDL.Vec(IDL.Tuple(RpcService, GetTransactionCountResult)),
   });
   const TransactionReceipt = IDL.Record({
-    'to' : IDL.Text,
-    'status' : IDL.Nat,
+    'to' : IDL.Opt(IDL.Text),
+    'status' : IDL.Opt(IDL.Nat),
     'transactionHash' : IDL.Text,
     'blockNumber' : IDL.Nat,
     'from' : IDL.Text,
@@ -277,6 +303,11 @@ export const idlFactory = ({ IDL }) => {
   const RequestResult = IDL.Variant({ 'Ok' : IDL.Text, 'Err' : RpcError });
   const RequestCostResult = IDL.Variant({ 'Ok' : IDL.Nat, 'Err' : RpcError });
   return IDL.Service({
+    'eth_call' : IDL.Func(
+        [RpcServices, IDL.Opt(RpcConfig), CallArgs],
+        [MultiCallResult],
+        [],
+      ),
     'eth_feeHistory' : IDL.Func(
         [RpcServices, IDL.Opt(RpcConfig), FeeHistoryArgs],
         [MultiFeeHistoryResult],

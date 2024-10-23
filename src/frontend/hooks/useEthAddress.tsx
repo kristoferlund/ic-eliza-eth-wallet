@@ -4,7 +4,7 @@ import useHandleAgentError from "./useHandleAgentError";
 import { useInternetIdentity } from "ic-use-internet-identity";
 
 export default function useEthAddress() {
-  const { actor: basic_eth } = useActor();
+  const { actor: backend } = useActor();
   const { handleAgentError } = useHandleAgentError();
   const { identity } = useInternetIdentity();
   const principal = identity?.getPrincipal();
@@ -14,7 +14,6 @@ export default function useEthAddress() {
   return useQuery({
     queryKey: ['address', principal],
     queryFn: async () => {
-
       if (!principal) {
         throw new Error("Principal is required.");
       }
@@ -28,7 +27,7 @@ export default function useEthAddress() {
       }
 
       try {
-        const result = await basic_eth?.get_address([principal]);
+        const result = await backend?.get_address([principal]);
 
         if (result === undefined) {
           throw new Error("Undefined address returned.");
@@ -50,6 +49,6 @@ export default function useEthAddress() {
         throw new Error("Invalid address returned.");
       }
     },
-    enabled: !!basic_eth && !!principal,
+    enabled: !!backend && !!principal,
   });
 }

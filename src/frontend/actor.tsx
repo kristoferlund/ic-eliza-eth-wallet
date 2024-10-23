@@ -9,8 +9,8 @@ import {
 import {
   canisterId,
   idlFactory,
-} from "./declarations/basic_eth/index"
-import { _SERVICE } from "./declarations/basic_eth/basic_eth.did";
+} from "../backend/declarations/index"
+import { _SERVICE } from "../backend/declarations/backend.did";
 import { useInternetIdentity } from "ic-use-internet-identity";
 
 const actorContext = createActorContext<_SERVICE>();

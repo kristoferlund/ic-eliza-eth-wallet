@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import useHandleAgentError from "./useHandleAgentError";
 
 export default function useEthBalance(address?: string) {
-  const { actor: basic_eth } = useActor();
+  const { actor: backend } = useActor();
   const { handleAgentError } = useHandleAgentError();
   return useQuery({
     queryKey: ['balance', address],
@@ -24,7 +24,7 @@ export default function useEthBalance(address?: string) {
         throw new Error("Invalid balance returned.")
       }
     },
-    enabled: !!basic_eth && !!address
+    enabled: !!backend && !!address
 
   })
 }

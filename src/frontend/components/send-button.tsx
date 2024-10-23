@@ -17,15 +17,15 @@ import { queryClient } from "@/main";
 
 export default function SendButton() {
   const { isPending: isFetchingAddress } = useEthAddress();
-  const { actor: basic_eth } = useActor();
+  const { actor: backend } = useActor();
   const { handleAgentError } = useHandleAgentError();
   const { mutate: sendEth, isPending: isSending, isError, data: sendResult } = useMutation({
     mutationFn: async ({ to, amount }: { to: string, amount: string }) => {
-      if (!basic_eth) {
-        throw new Error('basic_eth actor not initialized');
+      if (!backend) {
+        throw new Error('backend actor not initialized');
       }
       try {
-        const result = await basic_eth.send_eth(to, decimalStringToEth(amount));
+        const result = await backend.send_eth(to, decimalStringToEth(amount));
         // Refresh the balance in 5 seconds to give the Etherscan API time to catch up.
         // A better way to update balace would of course be:
         // 1. Parse response and check that transaction was successful
