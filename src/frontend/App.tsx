@@ -25,7 +25,7 @@ export default function App() {
         href="https://github.com/ic-alloy/ic-alloy-basic-wallet"
         target="_blank" rel="noreferrer"
       >
-        <img src="https://img.shields.io/github/license/ic-alloy-basic-wallet/ic-alloy-basic-wallet" />
+        <img src="https://img.shields.io/github/license/ic-alloy/ic-alloy-basic-wallet" />
       </a>
 
       <a
