@@ -8,11 +8,16 @@ The backend consists of a Rust canister uses the
 [ic-alloy](https://github.com/ic-alloy) library to interact with the Ethereum
 blockchain. The frontend is built with React and Vite.
 
-**Use this repository as a starting point for building your own multiuser
-Ethereum wallet on the Internet Computer.**
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]](LICENSE)
+
 
 > [!TIP]
->
+> Use this repository as a starting point for building your own multiuser Ethereum wallet on the Internet Computer.
+> 
 > Live demo: <https://7vics-6yaaa-aaaai-ap7lq-cai.icp0.io>
 
 ![](./media/screenshot.png)
@@ -169,3 +174,14 @@ details.
 
 Contributions are welcome! Please open an issue or submit a pull request if you
 have any suggestions or improvements.
+
+[contributors-shield]: https://img.shields.io/github/contributors/ic-alloy/ic-alloy-basic-wallet.svg?style=for-the-badge
+[contributors-url]: https://github.com/ic-alloy/ic-alloy-basic-wallet/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/ic-alloy/ic-alloy-basic-wallet.svg?style=for-the-badge
+[forks-url]: https://github.com/ic-alloy/ic-alloy-basic-wallet/network/members
+[stars-shield]: https://img.shields.io/github/stars/ic-alloy/ic-alloy-basic-wallet?style=for-the-badge
+[stars-url]: https://github.com/ic-alloy/ic-alloy-basic-wallet/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ic-alloy/ic-alloy-basic-wallet.svg?style=for-the-badge
+[issues-url]: https://github.com/ic-alloy/ic-alloy-basic-wallet/issues
+[license-shield]: https://img.shields.io/github/license/ic-alloy/ic-alloy-basic-wallet.svg?style=for-the-badge
+[license-url]: https://github.com/ic-alloy/ic-alloy-basic-wallet/blob/master/LICENSE.txt
