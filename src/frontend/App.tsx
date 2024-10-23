@@ -25,21 +25,21 @@ export default function App() {
           target="_blank"
           rel="noreferrer"
         >
-          <img src="https://img.shields.io/github/contributors/ic-alloy/ic-alloy-toolkit.svg?style=for-the-badge" />
+          <img src="https://img.shields.io/github/contributors/ic-alloy/ic-alloy-basic-wallet.svg?style=for-the-badge" />
         </a>
         <a
           href="https://github.com/ic-alloy/ic-alloy-basic-wallet"
           target="_blank"
           rel="noreferrer"
         >
-          <img src="https://img.shields.io/github/license/ic-alloy/ic-alloy-toolkit.svg?style=for-the-badge" />
+          <img src="https://img.shields.io/github/license/ic-alloy/ic-alloy-basic-wallet.svg?style=for-the-badge" />
         </a>
         <a
           href="https://github.com/ic-alloy/ic-alloy-basic-wallet/stargazers"
           target="_blank"
           rel="noreferrer"
         >
-          <img src="https://img.shields.io/github/stars/ic-alloy/ic-alloy-toolkit?style=for-the-badge" />
+          <img src="https://img.shields.io/github/stars/ic-alloy/ic-alloy-basic-wallet?style=for-the-badge" />
         </a>
       </div>
     </main>
