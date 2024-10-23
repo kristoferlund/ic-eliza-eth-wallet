@@ -1,10 +1,15 @@
 # A multiuser Ethereum wallet built on ICP
 
-This multiuser Ethereum wallet uses allows the user to generate an Ethereum address by logging in with their Internet Identity. The user can then send and receive Ethereum to other users.
+This multiuser Ethereum wallet uses allows the user to generate an Ethereum
+address by logging in with their Internet Identity. The user can then send and
+receive Ethereum to other users.
 
-The backend consists of a Rust canister uses the [ic-alloy](https://github.com/ic-alloy) library to interact with the Ethereum blockchain. The frontend is built with React and Vite.
+The backend consists of a Rust canister uses the
+[ic-alloy](https://github.com/ic-alloy) library to interact with the Ethereum
+blockchain. The frontend is built with React and Vite.
 
-**Use this repository as a starting point for building your own multiuser Ethereum wallet on the Internet Computer.**
+**Use this repository as a starting point for building your own multiuser
+Ethereum wallet on the Internet Computer.**
 
 > [!TIP]
 >
@@ -14,37 +19,42 @@ The backend consists of a Rust canister uses the [ic-alloy](https://github.com/i
 
 ## Project notes
 
-At all times when interacting with canisters on the IC you should consider the costs involved, and the fact that update calls take 2-3 seconds to complete. To create a good user experience, this wallet uses a combination of local state and canister calls to provide a responsive UI.
+At all times when interacting with canisters on the IC you should consider the
+costs involved, and the fact that update calls take 2-3 seconds to complete. To
+create a good user experience, this wallet uses a combination of local state and
+canister calls to provide a responsive UI.
 
-- The Ethereum address is stored in local state after the user logs in. Next time the user logs in, the address is retrieved from local state.
-- The balance of the Ethereum address is not queried from the backend canister. Instead, the frontend queries the balance from an Ethereum RPC endpoint. This is more efficient than making a canister call.
-
+- The Ethereum address is stored in local state after the user logs in. Next
+  time the user logs in, the address is retrieved from local state.
+- The balance of the Ethereum address is not queried from the backend canister.
+  Instead, the frontend queries the balance from an Ethereum RPC endpoint. This
+  is more efficient than making a canister call.
 
 ## Prerequisites
 
 ### `dfx`
 
-The project requires the IC developer environment to be installed. 
+The project requires the IC developer environment to be installed.
 
 - [Installation instructions](https://internetcomputer.org/docs/current/developer-docs/backend/rust/dev-env)
 
 ### `pnpm`
 
-Use `pnpm` to install the frontend dependencies. 
+Use `pnpm` to install the frontend dependencies.
 
 - [Installation instructions](https://pnpm.io/installation)
 
 ### Etherscan API key
 
-An Etherscan API is required to query the wallet ETH balance. 
-   
+An Etherscan API is required to query the wallet ETH balance.
+
 - [Get an API key](https://etherscan.io/apis)
 
 Save the API key to a file named `.env.local` in the root of the project:
 
 ```bash
 echo "VITE_ETHERSCAN_API_KEY=YOUR_API_KEY" > .env.local
-```   
+```
 
 ## Build and deploy
 
@@ -61,6 +71,7 @@ pnpm install
 ```
 
 ### 3. Deploy
+
 ```bash
 dfx deploy
 ```
@@ -104,8 +115,10 @@ Returns the ETH balance of the Ethereum address controlled by a principal.
 
 > [!NOTE]
 >
-> Making update calls to the backend canister comes with a small cost in cycles. And it takes a bit of time. Once the frontend has knowledge about the Ethereum address, it is more efficient to query the balance directly from an Ethereum RPC endpoint outside of the IC.
-
+> Making update calls to the backend canister comes with a small cost in cycles.
+> And it takes a bit of time. Once the frontend has knowledge about the Ethereum
+> address, it is more efficient to query the balance directly from an Ethereum
+> RPC endpoint outside of the IC.
 
 Call signature:
 
@@ -141,6 +154,11 @@ Send ETH by specifying receiver address and ETH amount (in wei):
 ```bash
 dfx canister call backend send_eth '("0xa32aECda752cF4EF89956e83d60C04835d4FA867", 1)'
 ```
+
+## Contributors
+
+<!-- readme: collaborators,contributors -start -->
+<!-- readme: collaborators,contributors -end -->
 
 ## License
 
