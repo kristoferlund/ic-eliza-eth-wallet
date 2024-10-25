@@ -38,7 +38,7 @@ checksum = "5c6cb57a04249c6480766f7f7cef5467412af1490f8d1e243141daddada3264f"
 [[package]]
 name = "alloy"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-consensus",
  "alloy-contract",
@@ -69,7 +69,7 @@ dependencies = [
 [[package]]
 name = "alloy-consensus"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-eips",
  "alloy-primitives",
@@ -82,7 +82,7 @@ dependencies = [
 [[package]]
 name = "alloy-contract"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-dyn-abi",
  "alloy-json-abi",
@@ -152,7 +152,7 @@ dependencies = [
 [[package]]
 name = "alloy-eips"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-eip2930",
  "alloy-eip7702",
@@ -181,7 +181,7 @@ dependencies = [
 [[package]]
 name = "alloy-json-rpc"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
@@ -194,7 +194,7 @@ dependencies = [
 [[package]]
 name = "alloy-network"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
@@ -214,7 +214,7 @@ dependencies = [
 [[package]]
 name = "alloy-network-primitives"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-eips",
  "alloy-primitives",
@@ -253,7 +253,7 @@ dependencies = [
 [[package]]
 name = "alloy-provider"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-chains",
  "alloy-consensus",
@@ -283,9 +283,9 @@ dependencies = [
 
 [[package]]
 name = "alloy-rlp"
-version = "0.3.8"
+version = "0.3.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "26154390b1d205a4a7ac7352aa2eb4f81f391399d4e2f546fb81a2f8bb383f62"
+checksum = "da0822426598f95e45dd1ea32a738dac057529a709ee645fcc516ffa4cbde08f"
 dependencies = [
  "alloy-rlp-derive",
  "arrayvec 0.7.6",
@@ -294,19 +294,19 @@ dependencies = [
 
 [[package]]
 name = "alloy-rlp-derive"
-version = "0.3.8"
+version = "0.3.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4d0f2d905ebd295e7effec65e5f6868d153936130ae718352771de3e7d03c75c"
+checksum = "2b09cae092c27b6f1bde952653a22708691802e57bfef4a2973b80bea21efd3f"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
 name = "alloy-rpc-client"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-json-rpc",
  "alloy-transport",
@@ -327,7 +327,7 @@ dependencies = [
 [[package]]
 name = "alloy-rpc-types"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-rpc-types-eth",
  "alloy-serde",
@@ -337,7 +337,7 @@ dependencies = [
 [[package]]
 name = "alloy-rpc-types-eth"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
@@ -357,7 +357,7 @@ dependencies = [
 [[package]]
 name = "alloy-serde"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-primitives",
  "serde",
@@ -367,7 +367,7 @@ dependencies = [
 [[package]]
 name = "alloy-signer"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-primitives",
  "async-trait",
@@ -380,7 +380,7 @@ dependencies = [
 [[package]]
 name = "alloy-signer-icp"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-consensus",
  "alloy-network",
@@ -402,7 +402,7 @@ dependencies = [
  "proc-macro-error2",
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -419,7 +419,7 @@ dependencies = [
  "proc-macro-error2",
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
  "syn-solidity",
  "tiny-keccak",
 ]
@@ -437,7 +437,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "serde_json",
- "syn 2.0.82",
+ "syn 2.0.85",
  "syn-solidity",
 ]
 
@@ -467,7 +467,7 @@ dependencies = [
 [[package]]
 name = "alloy-transport"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-json-rpc",
  "base64",
@@ -485,7 +485,7 @@ dependencies = [
 [[package]]
 name = "alloy-transport-http"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-transport",
  "url",
@@ -494,7 +494,7 @@ dependencies = [
 [[package]]
 name = "alloy-transport-icp"
 version = "0.3.5"
-source = "git+https://github.com/kristoferlund/ic-alloy.git?branch=icp#d43edacf1fc22358586b142a9d3178c667eaeb6b"
+source = "git+https://github.com/ic-alloy/ic-alloy.git?branch=icp#f908778b462a658fafceb9c6a064f0aaad70d37e"
 dependencies = [
  "alloy-json-rpc",
  "alloy-transport",
@@ -666,7 +666,7 @@ checksum = "c7c24de15d275a1ecfd47a380fb4d5ec9bfe0933f309ed5e705b775596a3574d"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -677,7 +677,7 @@ checksum = "721cae7de5c34fbb2acd27e21e6d2cf7b886dce0c27388d46c4e6c47ea4318dd"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -688,7 +688,7 @@ checksum = "3c87f3f15e7794432337fc718554eaa4dc8f04c9677a950ffe366f20a162ae42"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -888,7 +888,7 @@ dependencies = [
  "lazy_static",
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -1035,7 +1035,7 @@ checksum = "cb7330aeadfbe296029522e6c40f315320aba36fc43a5b3632f3795348f3bd22"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
  "unicode-xid",
 ]
 
@@ -1243,7 +1243,7 @@ checksum = "162ee34ebcb7c64a8abebc059ce0fee27c2262618d7b60ed8faf72fef13c3650"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -1410,7 +1410,7 @@ dependencies = [
  "quote",
  "serde",
  "serde_tokenstream",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -1664,7 +1664,7 @@ checksum = "af1844ef2428cc3e1cb900be36181049ef3d3193c63e43026cfe202983b27a56"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -1746,29 +1746,29 @@ dependencies = [
 
 [[package]]
 name = "pin-project"
-version = "1.1.6"
+version = "1.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "baf123a161dde1e524adf36f90bc5d8d3462824a9c43553ad07a8183161189ec"
+checksum = "be57f64e946e500c8ee36ef6331845d40a93055567ec57e8fae13efd33759b95"
 dependencies = [
  "pin-project-internal",
 ]
 
 [[package]]
 name = "pin-project-internal"
-version = "1.1.6"
+version = "1.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4502d8515ca9f32f1fb543d987f63d95a14934883db45bdb48060b6b69257f8"
+checksum = "3c0f5fad0874fc7abcd4d750e76917eaebbecaa2c20bde22e1dbeeba8beb758c"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
 name = "pin-project-lite"
-version = "0.2.14"
+version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bda66fc9667c18cb2758a2ac84d1167245054bcf85d5d1aaa6923f45801bdd02"
+checksum = "915a1e146535de9163f3987b8944ed8cf49a18bb0056bcebcdcece385cece4ff"
 
 [[package]]
 name = "pin-utils"
@@ -1845,7 +1845,7 @@ dependencies = [
  "proc-macro-error-attr2",
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -2155,7 +2155,7 @@ checksum = "7e85ad2009c50b58e87caa8cd6dac16bdf511bbfb7af6c33df902396aa480fa5"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -2179,7 +2179,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "serde",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -2301,7 +2301,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "rustversion",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -2323,9 +2323,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.82"
+version = "2.0.85"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83540f837a8afc019423a8edb95b52a8effe46957ee402287f4292fae35be021"
+checksum = "5023162dfcd14ef8f32034d8bcd4cc5ddc61ef7a247c024a33e24e1f24d21b56"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2341,7 +2341,7 @@ dependencies = [
  "paste",
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -2386,7 +2386,7 @@ checksum = "ae71770322cbd277e69d762a16c444af02aa0575ac0d174f0b9562d3b37f8602"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -2441,7 +2441,7 @@ checksum = "693d596312e88961bc67d7f1f97af8a70227d9f90c31bba5806eec004978d752"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -2531,7 +2531,7 @@ checksum = "34704c8d6ebcbc939824180af020566b01a7c01f80641264eba0999f6c2b6be7"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -2768,7 +2768,7 @@ checksum = "fa4f8080344d4671fb4e831a13ad1e68092748387dfc4f55e356242fae12ce3e"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]
 
 [[package]]
@@ -2788,5 +2788,5 @@ checksum = "ce36e65b0d2999d2aafac989fb249189a141aee1f53c612c1f37d72631959f69"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.82",
+ "syn 2.0.85",
 ]

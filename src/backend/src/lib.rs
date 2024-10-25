@@ -1,6 +1,6 @@
 mod service;
 
-use alloy::transports::icp::{EthSepoliaService, RpcApi, RpcService};
+use alloy::transports::icp::{RpcApi, RpcService};
 use candid::{Nat, Principal};
 use ic_cdk::export_candid;
 use serde_bytes::ByteBuf;
