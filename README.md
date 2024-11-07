@@ -35,25 +35,11 @@ canister calls to provide a responsive UI.
   Instead, the frontend queries the balance from an Ethereum RPC endpoint. This
   is more efficient than making a canister call.
 
-## Prerequisites
+## Setup, pre-requisites
 
-### `dfx`
+#### Etherscan API key
 
-The project requires the IC developer environment to be installed.
-
-- [Installation instructions](https://internetcomputer.org/docs/current/developer-docs/backend/rust/dev-env)
-
-### `pnpm`
-
-Use `pnpm` to install the frontend dependencies.
-
-- [Installation instructions](https://pnpm.io/installation)
-
-### Etherscan API key
-
-An Etherscan API is required to query the wallet ETH balance.
-
-- [Get an API key](https://etherscan.io/apis)
+An [Etherscan API key](https://etherscan.io/apis) is required to query the wallet ETH balance. Creating an Etherscan account is free.
 
 Save the API key to a file named `.env.local` in the root of the project:
 
@@ -61,23 +47,55 @@ Save the API key to a file named `.env.local` in the root of the project:
 echo "VITE_ETHERSCAN_API_KEY=YOUR_API_KEY" > .env.local
 ```
 
-## Build and deploy
+## Setup, dev environment
 
-### 1. Start the local IC replica
+There are two main ways to set up the dev environment:
+
+### 1. Using a VS Code Dev Container
+
+The dev containers extension lets you use a Docker container as a full-featured
+development environment. This repository includes a dev container configuration
+that you can use to open the project with all the necessary tools and
+dependencies pre-installed.
+
+Pre-requisites:
+
+- [Docker](https://www.docker.com/products/docker-desktop)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+Once Docker, Visual Studio Code and the Dev Containers Extension are installed,
+you can open the project in a container by clicking the button below:
+
+[![Open locally in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/ic-alloy/ic-alloy-basic-wallet)
+
+### 2. Setup manually
+
+Pre-requisites:
+
+- [Local Internet Computer dev environment](https://internetcomputer.org/docs/current/developer-docs/backend/rust/dev-env)
+- [pnpm](https://pnpm.io/installation)
+
+Once you have the prerequisites installed, you can clone this repository and run
+the project.
+
+## Running the project
+
+### 1. Start the Internet Computer
 
 ```bash
-dfx start --background --clean
+dfx start --background
 ```
 
-### 2. Install frontend dependencies
+### 2. Install dependencies
 
-```bash
+```
 pnpm install
 ```
 
-### 3. Deploy
+### 3. Deploy the canisters
 
-```bash
+```
 dfx deploy
 ```
 
