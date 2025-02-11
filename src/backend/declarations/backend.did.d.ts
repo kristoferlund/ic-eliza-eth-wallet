@@ -6,8 +6,10 @@ export type Result = { 'Ok' : string } |
   { 'Err' : string };
 export type Wei = bigint;
 export interface _SERVICE {
-  'get_address' : ActorMethod<[[] | [Principal]], Result>,
-  'get_balance' : ActorMethod<[[] | [Principal]], Result>,
+  'allow_agent' : ActorMethod<[string], Result>,
+  'get_address' : ActorMethod<[], Result>,
+  'get_allowed_agent' : ActorMethod<[], Result>,
+  'get_balance' : ActorMethod<[], Result>,
   'send_eth' : ActorMethod<[string, Wei], Result>,
 }
 export declare const idlFactory: IDL.InterfaceFactory;

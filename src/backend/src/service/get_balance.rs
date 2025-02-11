@@ -1,15 +1,14 @@
-use crate::{create_derivation_path, get_ecdsa_key_name, get_rpc_service};
+use crate::{auth_guard, create_derivation_path, get_ecdsa_key_name, get_rpc_service};
 use alloy::{
     providers::{Provider, ProviderBuilder},
     signers::{icp::IcpSigner, Signer},
     transports::icp::IcpConfig,
 };
-use candid::Principal;
 
 #[ic_cdk::update]
-async fn get_balance(principal: Option<Principal>) -> Result<String, String> {
-    // If no principal is specified in call, attempt to use caller principal
-    let principal = principal.unwrap_or_else(ic_cdk::caller);
+async fn get_balance() -> Result<String, String> {
+    auth_guard()?;
+    let principal = ic_cdk::caller();
 
     // Setup signer
     let ecdsa_key_name = get_ecdsa_key_name();
