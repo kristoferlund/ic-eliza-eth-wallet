@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SendImport } from './routes/send'
 import { Route as ReceiveImport } from './routes/receive'
 import { Route as HistoryImport } from './routes/history'
+import { Route as AgentRulesImport } from './routes/agent-rules'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -36,6 +37,12 @@ const HistoryRoute = HistoryImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AgentRulesRoute = AgentRulesImport.update({
+  id: '/agent-rules',
+  path: '/agent-rules',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
@@ -51,6 +58,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/agent-rules': {
+      id: '/agent-rules'
+      path: '/agent-rules'
+      fullPath: '/agent-rules'
+      preLoaderRoute: typeof AgentRulesImport
       parentRoute: typeof rootRoute
     }
     '/history': {
@@ -81,6 +95,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agent-rules': typeof AgentRulesRoute
   '/history': typeof HistoryRoute
   '/receive': typeof ReceiveRoute
   '/send': typeof SendRoute
@@ -88,6 +103,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agent-rules': typeof AgentRulesRoute
   '/history': typeof HistoryRoute
   '/receive': typeof ReceiveRoute
   '/send': typeof SendRoute
@@ -96,6 +112,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/agent-rules': typeof AgentRulesRoute
   '/history': typeof HistoryRoute
   '/receive': typeof ReceiveRoute
   '/send': typeof SendRoute
@@ -103,15 +120,16 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/history' | '/receive' | '/send'
+  fullPaths: '/' | '/agent-rules' | '/history' | '/receive' | '/send'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history' | '/receive' | '/send'
-  id: '__root__' | '/' | '/history' | '/receive' | '/send'
+  to: '/' | '/agent-rules' | '/history' | '/receive' | '/send'
+  id: '__root__' | '/' | '/agent-rules' | '/history' | '/receive' | '/send'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgentRulesRoute: typeof AgentRulesRoute
   HistoryRoute: typeof HistoryRoute
   ReceiveRoute: typeof ReceiveRoute
   SendRoute: typeof SendRoute
@@ -119,6 +137,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgentRulesRoute: AgentRulesRoute,
   HistoryRoute: HistoryRoute,
   ReceiveRoute: ReceiveRoute,
   SendRoute: SendRoute,
@@ -135,6 +154,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/agent-rules",
         "/history",
         "/receive",
         "/send"
@@ -142,6 +162,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/agent-rules": {
+      "filePath": "agent-rules.tsx"
     },
     "/history": {
       "filePath": "history.tsx"

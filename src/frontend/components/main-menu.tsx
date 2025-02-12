@@ -27,10 +27,6 @@ export function MainMenu() {
             History
           </DropdownMenuItem>
         </Link>
-        <DropdownMenuItem>
-          <Cog />
-          Settings
-        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={clear}>
           <LogOut />

@@ -2,15 +2,18 @@ import useAllowedAgent from '@/hooks/useAllowedAgent';
 import { Skeleton } from './ui/skeleton';
 import { useState, useRef, useEffect } from 'react';
 import { Input } from './ui/input';
-import useAllowAgent from '@/hooks/useAllowAgent';
+import useSetAllowedAgent from '@/hooks/useSetAllowedAgent';
+import { Link } from '@tanstack/react-router';
+import { Cog } from 'lucide-react';
+import { Button } from './ui/button';
 
 export function AllowedAgent() {
   const { data: agent, isPending } = useAllowedAgent();
   const {
-    mutate: allowAgent,
+    mutate: setAllowedAgent,
     isPending: isAllowPending,
     isError: isAllowError,
-  } = useAllowAgent();
+  } = useSetAllowedAgent();
 
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState('');
@@ -38,7 +41,7 @@ export function AllowedAgent() {
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
-            allowAgent(value);
+            setAllowedAgent(value);
             setEditing(false);
           }
         }}
@@ -59,8 +62,18 @@ export function AllowedAgent() {
   }
 
   return (
-    <div className="text-muted-foreground inline-block" onClick={handleClick}>
-      {agent.slice(0, 5)}...{agent.slice(-5)}
+    <div
+      className="text-muted-foreground inline-flex w-full justify-between items-center"
+      onClick={handleClick}
+    >
+      <div>
+        {agent.slice(0, 5)}...{agent.slice(-5)}
+      </div>
+      <Link to="/agent-rules">
+        <Button variant="ghost" className="w-12">
+          <Cog />
+        </Button>
+      </Link>
     </div>
   );
 }
