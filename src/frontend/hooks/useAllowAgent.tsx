@@ -1,8 +1,8 @@
 import { useActor } from '@/actor';
 import { useMutation } from '@tanstack/react-query';
 import { useInternetIdentity } from 'ic-use-internet-identity';
-import { queryClient } from '@/main';
 import { toast } from './use-toast';
+import { queryClient } from '@/routes/__root';
 
 export default function useAllowAgent() {
   const { actor: backend } = useActor();

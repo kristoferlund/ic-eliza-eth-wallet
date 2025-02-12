@@ -1,16 +1,21 @@
-import Login from './components/login';
-import { useInternetIdentity } from 'ic-use-internet-identity';
-import Wallet from './components/wallet';
-import { Toaster } from './components/ui/toaster';
+import Login from '../components/login'
+import { useInternetIdentity } from 'ic-use-internet-identity'
+import Wallet from '../components/wallet'
+import { Toaster } from '../components/ui/toaster'
+import { createFileRoute } from '@tanstack/react-router'
+
+export const Route = createFileRoute('/')({
+  component: App,
+})
 
 function AppInner() {
-  const { identity } = useInternetIdentity();
+  const { identity } = useInternetIdentity()
 
   if (!identity) {
-    return <Login />;
+    return <Login />
   }
 
-  return <Wallet />;
+  return <Wallet />
 }
 
 export default function App() {
@@ -43,5 +48,5 @@ export default function App() {
         </a>
       </div>
     </main>
-  );
+  )
 }
