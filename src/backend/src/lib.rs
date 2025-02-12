@@ -2,12 +2,13 @@ mod service;
 mod utils;
 
 use alloy::transports::icp::{RpcApi, RpcService};
-use candid::{Nat, Principal};
+use candid::{CandidType, Decode, Deserialize, Encode, Nat, Principal};
 use ic_cdk::export_candid;
 use ic_stable_structures::memory_manager::{MemoryId, MemoryManager, VirtualMemory};
-use ic_stable_structures::storable::Blob;
-use ic_stable_structures::{DefaultMemoryImpl, StableBTreeMap};
+use ic_stable_structures::storable::{Blob, Bound};
+use ic_stable_structures::{DefaultMemoryImpl, StableBTreeMap, Storable};
 use serde_bytes::ByteBuf;
+use std::borrow::Cow;
 use std::cell::RefCell;
 
 // ICP uses different ECDSA key names for mainnet and local
@@ -59,7 +60,26 @@ fn auth_guard() -> Result<(), String> {
 
 type Memory = VirtualMemory<DefaultMemoryImpl>;
 
+#[derive(CandidType, Deserialize, Debug, Clone)]
+struct AgentRules {
+    transactions_per_day: u32,
+    max_transaction_amount: Nat,
+}
+
+impl Storable for AgentRules {
+    fn to_bytes(&self) -> std::borrow::Cow<[u8]> {
+        Cow::Owned(Encode!(self).unwrap())
+    }
+
+    fn from_bytes(bytes: std::borrow::Cow<[u8]>) -> Self {
+        Decode!(bytes.as_ref(), Self).unwrap()
+    }
+
+    const BOUND: Bound = Bound::Unbounded;
+}
+
 const ALLOWED_AGENT_MEMORY_ID: MemoryId = MemoryId::new(0);
+const ALLOWED_AGENT_RULES_MEMORY_ID: MemoryId = MemoryId::new(1);
 
 thread_local! {
     static MEMORY_MANAGER: RefCell<MemoryManager<DefaultMemoryImpl>> =
@@ -68,6 +88,12 @@ thread_local! {
     static ALLOWED_AGENTS: RefCell<StableBTreeMap<Blob<29>, Blob<29>, Memory>> = RefCell::new(
         StableBTreeMap::init(
             MEMORY_MANAGER.with(|m| m.borrow().get(ALLOWED_AGENT_MEMORY_ID)),
+        )
+    );
+
+    static ALLOWED_AGENTS_RULES: RefCell<StableBTreeMap<Blob<29>, AgentRules, Memory>> = RefCell::new(
+        StableBTreeMap::init(
+            MEMORY_MANAGER.with(|m| m.borrow().get(ALLOWED_AGENT_RULES_MEMORY_ID)),
         )
     );
 }

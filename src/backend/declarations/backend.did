@@ -1,11 +1,23 @@
+type Wei = nat; // Base unit of ETH, i.e., 1 ETH = 10^18 Wei.
+
+type AgentRules = record {
+    transactions_per_day: nat32;
+    max_transaction_amount: Wei;
+};
+
 type Result = variant { Ok : text; Err : text };
 
-// Base unit of ETH, i.e., 1 ETH = 10^18 Wei.
-type Wei = nat;
+type GetAllowedAgentResult = variant { Ok : opt text; Err : text };
+
+type GetAllowedAgentRulesResult = variant { Ok : opt AgentRules; Err : text };
+
+type SetAllowedAgentRulesResult = variant { Ok : AgentRules; Err : text };
 
 service : {
-  allow_agent: (allowed_agent: text) -> (Result);
-  get_allowed_agent: () -> (Result) query;
+  get_allowed_agent : () -> (GetAllowedAgentResult) query;
+  set_allowed_agent : (allowed_agent: text) -> (Result);
+  get_allowed_agent_rules : () -> (GetAllowedAgentRulesResult) query;
+  set_allowed_agent_rules : (AgentRules) -> (SetAllowedAgentRulesResult);
   get_address : () -> (Result);
   get_balance : () -> (Result);
   send_eth : (to: text, amount: Wei) -> (Result);
