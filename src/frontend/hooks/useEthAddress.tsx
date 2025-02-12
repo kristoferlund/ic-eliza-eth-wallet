@@ -45,8 +45,7 @@ export default function useEthAddress() {
         return address;
       } catch (e) {
         handleAgentError(e);
-        console.error(e);
-        throw new Error('Invalid address returned.');
+        throw e;
       }
     },
     enabled: !!backend && !!principal,

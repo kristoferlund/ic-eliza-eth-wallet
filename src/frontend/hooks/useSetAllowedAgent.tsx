@@ -4,7 +4,7 @@ import { useInternetIdentity } from 'ic-use-internet-identity';
 import { toast } from './use-toast';
 import { queryClient } from '@/routes/__root';
 
-export default function useAllowAgent() {
+export default function useSetAllowedAgent() {
   const { actor: backend } = useActor();
   const { identity } = useInternetIdentity();
   const principal = identity?.getPrincipal();
@@ -15,7 +15,7 @@ export default function useAllowAgent() {
         throw new Error('Principal is required.');
       }
 
-      const result = await backend?.allow_agent(allowedAgent);
+      const result = await backend?.set_allowed_agent(allowedAgent);
 
       if (result === undefined) {
         throw new Error('Undefined result returned.');
