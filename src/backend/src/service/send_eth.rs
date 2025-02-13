@@ -1,6 +1,9 @@
 use std::{cell::RefCell, collections::HashMap};
 
-use crate::{auth_guard, create_derivation_path, get_ecdsa_key_name, get_rpc_service};
+use crate::{
+    auth_guard, create_derivation_path, get_ecdsa_key_name, get_rpc_service,
+    utils::get_principal_in_scope,
+};
 use alloy::{
     network::{EthereumWallet, TransactionBuilder, TxSigner},
     primitives::{Address, U256},
@@ -18,12 +21,16 @@ thread_local! {
 }
 
 #[ic_cdk::update]
-async fn send_eth(to_address: String, amount: Nat) -> Result<String, String> {
+async fn send_eth(
+    to_address: String,
+    amount: Nat,
+    as_agent: Option<bool>,
+) -> Result<String, String> {
     // Calls to send_eth need to be authenticated
     auth_guard()?;
 
-    // From address is the method caller
-    let from_principal = ic_cdk::caller();
+    // From address is the method caller or the principal managed by the agent
+    let from_principal = get_principal_in_scope(as_agent)?;
 
     // Make sure we have a correct to address
     let to_address = Address::parse_checksummed(to_address, None).map_err(|e| e.to_string())?;

@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useInternetIdentity } from 'ic-use-internet-identity';
-import { Cog, Ellipsis, History, LogOut } from 'lucide-react';
+import { Ellipsis, History, LogOut } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 
 export function MainMenu() {

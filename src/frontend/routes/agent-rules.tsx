@@ -4,8 +4,8 @@ import HomeLink from '@/components/home-link';
 import { MainMenu } from '@/components/main-menu';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import useSetAllowedAgentRules from '@/hooks/useSetAllowedAgentRules';
-import useAllowedAgentRules from '@/hooks/useAllowedAgentRules';
+import useSetAgentRules from '@/hooks/useSetAgentRules';
+import useGetAgentRules from '@/hooks/useGetAgentRules';
 import { useEffect, useState } from 'react';
 import { Label } from '@/components/ui/label';
 
@@ -14,30 +14,28 @@ export const Route = createFileRoute('/agent-rules')({
 });
 
 export default function AgentRulesPage() {
-  const { data: allowedAgentRules, isPending } = useAllowedAgentRules();
+  const { data: agentRules, isPending } = useGetAgentRules();
   const {
-    mutate: setAllowedAgentRules,
+    mutate: setAgentRules,
     data: setResult,
     isPending: isSetPending,
     isError: isSetError,
-  } = useSetAllowedAgentRules();
+  } = useSetAgentRules();
 
   const [transactionsPerDay, setTransactionsPerDay] = useState('0');
   const [maxTransactionAmount, setMaxTransactionAmount] = useState('0');
 
   useEffect(() => {
     if (isPending) return;
-    if (allowedAgentRules) {
-      setTransactionsPerDay(allowedAgentRules.transactions_per_day.toString());
-      setMaxTransactionAmount(
-        allowedAgentRules.max_transaction_amount.toString(),
-      );
+    if (agentRules) {
+      setTransactionsPerDay(agentRules.transactions_per_day.toString());
+      setMaxTransactionAmount(agentRules.max_transaction_amount.toString());
     }
-  }, [allowedAgentRules, isPending]);
+  }, [agentRules, isPending]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setAllowedAgentRules({
+    setAgentRules({
       max_transaction_amount: BigInt(maxTransactionAmount),
       transactions_per_day: Number.parseInt(transactionsPerDay),
     });

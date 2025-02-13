@@ -1,19 +1,15 @@
-import useAllowedAgent from '@/hooks/useAllowedAgent';
 import { Skeleton } from './ui/skeleton';
 import { useState, useRef, useEffect } from 'react';
 import { Input } from './ui/input';
-import useSetAllowedAgent from '@/hooks/useSetAllowedAgent';
+import useSetAgent from '@/hooks/useSetAgent';
 import { Link } from '@tanstack/react-router';
 import { Cog } from 'lucide-react';
 import { Button } from './ui/button';
+import useGetAgent from '@/hooks/useGetAgent';
 
-export function AllowedAgent() {
-  const { data: agent, isPending } = useAllowedAgent();
-  const {
-    mutate: setAllowedAgent,
-    isPending: isAllowPending,
-    isError: isAllowError,
-  } = useSetAllowedAgent();
+export function Agent() {
+  const { data: agent, isPending } = useGetAgent();
+  const { mutate: setAgent, isPending: isSetAgentPending } = useSetAgent();
 
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState('');
@@ -36,12 +32,15 @@ export function AllowedAgent() {
         ref={inputRef}
         type="text"
         className="border w-full border-muted-foreground rounded-md px-2 py-1"
-        placeholder="Enter allowed agent"
+        placeholder="Allowed agent principal"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
-            setAllowedAgent(value);
+            setAgent(value);
+            setEditing(false);
+          }
+          if (e.key === 'Escape') {
             setEditing(false);
           }
         }}
@@ -49,14 +48,14 @@ export function AllowedAgent() {
     );
   }
 
-  if (isPending || isAllowPending) {
+  if (isPending || isSetAgentPending) {
     return <Skeleton className="h-[19px] w-[125px] inline-block" />;
   }
 
   if (!agent) {
     return (
       <div className="text-muted-foreground inline-block" onClick={handleClick}>
-        &lt;{isAllowError ? 'Error' : 'Set allowed agent'}&gt;
+        &lt;Set allowed agent&gt;
       </div>
     );
   }

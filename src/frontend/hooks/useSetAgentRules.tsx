@@ -5,18 +5,18 @@ import { toast } from './use-toast';
 import { queryClient } from '@/routes/__root';
 import { AgentRules } from 'src/backend/declarations/backend.did';
 
-export default function useSetAllowedAgentRules() {
+export default function useSetAgentRules() {
   const { actor: backend } = useActor();
   const { identity } = useInternetIdentity();
   const principal = identity?.getPrincipal();
 
   return useMutation({
-    mutationFn: async (allowedAgentRules: AgentRules) => {
+    mutationFn: async (agentRules: AgentRules) => {
       if (!principal) {
         throw new Error('Principal is required.');
       }
 
-      const result = await backend?.set_allowed_agent_rules(allowedAgentRules);
+      const result = await backend?.set_agent_rules(agentRules);
 
       if (result === undefined) {
         throw new Error('Undefined result returned.');
@@ -31,7 +31,7 @@ export default function useSetAllowedAgentRules() {
       }
 
       queryClient.invalidateQueries({
-        queryKey: ['get_allowed_agent_rules', principal],
+        queryKey: ['get_agent_rules', principal],
       });
 
       return result.Ok;

@@ -1,49 +1,22 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { LoaderCircle } from 'lucide-react';
-import { useMutation } from '@tanstack/react-query';
-import { useActor } from '@/actor';
-import { decimalStringToEth } from '@/lib/eth';
-import useHandleAgentError from '@/hooks/useHandleAgentError';
-import { queryClient } from '@/routes/__root';
 import HomeLink from '@/components/home-link';
 import { MainMenu } from '@/components/main-menu';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import useSendEth from '@/hooks/useSendEth';
 
 export const Route = createFileRoute('/send')({
   component: SendPage,
 });
 
 export default function SendPage() {
-  const { actor: backend } = useActor();
-  const { handleAgentError } = useHandleAgentError();
   const {
     mutate: sendEth,
     isPending: isSending,
     isError,
     data: sendResult,
-  } = useMutation({
-    mutationFn: async ({ to, amount }: { to: string; amount: string }) => {
-      if (!backend) {
-        throw new Error('backend actor not initialized');
-      }
-      try {
-        const result = await backend.send_eth(to, decimalStringToEth(amount));
-        // Refresh the balance in 5 seconds to give the Etherscan API time to catch up.
-        // A better way to update balace would of course be:
-        // 1. Parse response and check that transaction was successful
-        // 2. Update balance manually, no API calls required.
-        setTimeout(() => {
-          queryClient.invalidateQueries({ queryKey: ['balance'] });
-          queryClient.invalidateQueries({ queryKey: ['history'] });
-        }, 5000);
-        return result;
-      } catch (e) {
-        handleAgentError(e);
-        console.error(e);
-      }
-    },
-  });
+  } = useSendEth();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

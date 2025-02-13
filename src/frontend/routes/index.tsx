@@ -7,7 +7,7 @@ import { IcpAddress } from '@/components/icp-address';
 import { Balance } from '@/components/balance';
 import ReceiveButton from '@/components/receive-button';
 import SendButton from '@/components/send-button';
-import { AllowedAgent } from '@/components/allowed-agent';
+import { Agent } from '@/components/agent';
 import { MainMenu } from '@/components/main-menu';
 
 export const Route = createFileRoute('/')({
@@ -37,7 +37,7 @@ function AppInner() {
       </div>
       <div className="flex items-center gap-2">
         <div className="whitespace-nowrap">Allowed Agent:</div>
-        <AllowedAgent />
+        <Agent />
       </div>
       <Balance />
       <div className="flex gap-5">

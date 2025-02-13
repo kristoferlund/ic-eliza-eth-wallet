@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import useHandleAgentError from './useHandleAgentError';
 import { useInternetIdentity } from 'ic-use-internet-identity';
 
-export default function useEthAddress() {
+export default function useGetAddress() {
   const { actor: backend } = useActor();
   const { handleAgentError } = useHandleAgentError();
   const { identity } = useInternetIdentity();
@@ -27,7 +27,7 @@ export default function useEthAddress() {
       }
 
       try {
-        const result = await backend?.get_address();
+        const result = await backend?.get_address([]);
 
         if (result === undefined) {
           throw new Error('Undefined address returned.');

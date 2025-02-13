@@ -1,4 +1,7 @@
-use crate::{auth_guard, create_derivation_path, get_ecdsa_key_name, get_rpc_service};
+use crate::{
+    auth_guard, create_derivation_path, get_ecdsa_key_name, get_rpc_service,
+    utils::get_principal_in_scope,
+};
 use alloy::{
     providers::{Provider, ProviderBuilder},
     signers::{icp::IcpSigner, Signer},
@@ -6,9 +9,9 @@ use alloy::{
 };
 
 #[ic_cdk::update]
-async fn get_balance() -> Result<String, String> {
+async fn get_balance(as_agent: Option<bool>) -> Result<String, String> {
     auth_guard()?;
-    let principal = ic_cdk::caller();
+    let principal = get_principal_in_scope(as_agent)?;
 
     // Setup signer
     let ecdsa_key_name = get_ecdsa_key_name();

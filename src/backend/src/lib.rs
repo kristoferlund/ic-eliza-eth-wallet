@@ -78,22 +78,29 @@ impl Storable for AgentRules {
     const BOUND: Bound = Bound::Unbounded;
 }
 
-const ALLOWED_AGENT_MEMORY_ID: MemoryId = MemoryId::new(0);
-const ALLOWED_AGENT_RULES_MEMORY_ID: MemoryId = MemoryId::new(1);
+const AGENTS_TO_WALLETS_MEMORY_ID: MemoryId = MemoryId::new(0);
+const WALLETS_TO_AGENTS_MEMORY_ID: MemoryId = MemoryId::new(1);
+const AGENT_RULES_MEMORY_ID: MemoryId = MemoryId::new(2);
 
 thread_local! {
     static MEMORY_MANAGER: RefCell<MemoryManager<DefaultMemoryImpl>> =
         RefCell::new(MemoryManager::init(DefaultMemoryImpl::default()));
 
-    static ALLOWED_AGENTS: RefCell<StableBTreeMap<Blob<29>, Blob<29>, Memory>> = RefCell::new(
+    static AGENTS_TO_WALLETS: RefCell<StableBTreeMap<Blob<29>, Blob<29>, Memory>> = RefCell::new(
         StableBTreeMap::init(
-            MEMORY_MANAGER.with(|m| m.borrow().get(ALLOWED_AGENT_MEMORY_ID)),
+            MEMORY_MANAGER.with(|m| m.borrow().get(AGENTS_TO_WALLETS_MEMORY_ID)),
         )
     );
 
-    static ALLOWED_AGENTS_RULES: RefCell<StableBTreeMap<Blob<29>, AgentRules, Memory>> = RefCell::new(
+    static WALLETS_TO_AGENTS: RefCell<StableBTreeMap<Blob<29>, Blob<29>, Memory>> = RefCell::new(
         StableBTreeMap::init(
-            MEMORY_MANAGER.with(|m| m.borrow().get(ALLOWED_AGENT_RULES_MEMORY_ID)),
+            MEMORY_MANAGER.with(|m| m.borrow().get(WALLETS_TO_AGENTS_MEMORY_ID)),
+        )
+    );
+
+    static AGENT_RULES: RefCell<StableBTreeMap<Blob<29>, AgentRules, Memory>> = RefCell::new(
+        StableBTreeMap::init(
+            MEMORY_MANAGER.with(|m| m.borrow().get(AGENT_RULES_MEMORY_ID)),
         )
     );
 }

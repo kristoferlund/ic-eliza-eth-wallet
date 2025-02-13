@@ -1,10 +1,10 @@
 import { CircleArrowDown } from 'lucide-react';
 import { Button } from './ui/button';
-import useEthAddress from '@/hooks/useEthAddress';
+import useGetAddress from '@/hooks/useGetAddress';
 import { Link } from '@tanstack/react-router';
 
 export default function ReceiveButton() {
-  const { isPending: isFetchingAddress } = useEthAddress();
+  const { isPending: isFetchingAddress } = useGetAddress();
 
   return (
     <Link to="/receive" disabled={isFetchingAddress} className="w-full">

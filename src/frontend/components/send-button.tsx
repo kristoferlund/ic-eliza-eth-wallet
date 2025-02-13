@@ -1,6 +1,6 @@
 import { Send } from 'lucide-react';
 import { Button } from './ui/button';
-import useEthAddress from '@/hooks/useEthAddress';
+import useEthAddress from '@/hooks/useGetAddress';
 import { Link } from '@tanstack/react-router';
 
 export default function SendButton() {

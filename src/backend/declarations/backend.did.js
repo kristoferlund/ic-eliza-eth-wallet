@@ -1,6 +1,6 @@
 export const idlFactory = ({ IDL }) => {
   const Result = IDL.Variant({ 'Ok' : IDL.Text, 'Err' : IDL.Text });
-  const GetAllowedAgentResult = IDL.Variant({
+  const GetAgentResult = IDL.Variant({
     'Ok' : IDL.Opt(IDL.Text),
     'Err' : IDL.Text,
   });
@@ -9,30 +9,22 @@ export const idlFactory = ({ IDL }) => {
     'transactions_per_day' : IDL.Nat32,
     'max_transaction_amount' : Wei,
   });
-  const GetAllowedAgentRulesResult = IDL.Variant({
+  const GetAgentRulesResult = IDL.Variant({
     'Ok' : IDL.Opt(AgentRules),
     'Err' : IDL.Text,
   });
-  const SetAllowedAgentRulesResult = IDL.Variant({
+  const SetAgentRulesResult = IDL.Variant({
     'Ok' : AgentRules,
     'Err' : IDL.Text,
   });
   return IDL.Service({
-    'get_address' : IDL.Func([], [Result], []),
-    'get_allowed_agent' : IDL.Func([], [GetAllowedAgentResult], ['query']),
-    'get_allowed_agent_rules' : IDL.Func(
-        [],
-        [GetAllowedAgentRulesResult],
-        ['query'],
-      ),
-    'get_balance' : IDL.Func([], [Result], []),
-    'send_eth' : IDL.Func([IDL.Text, Wei], [Result], []),
-    'set_allowed_agent' : IDL.Func([IDL.Text], [Result], []),
-    'set_allowed_agent_rules' : IDL.Func(
-        [AgentRules],
-        [SetAllowedAgentRulesResult],
-        [],
-      ),
+    'get_address' : IDL.Func([IDL.Opt(IDL.Bool)], [Result], []),
+    'get_agent' : IDL.Func([], [GetAgentResult], ['query']),
+    'get_agent_rules' : IDL.Func([], [GetAgentRulesResult], ['query']),
+    'get_balance' : IDL.Func([IDL.Opt(IDL.Bool)], [Result], []),
+    'send_eth' : IDL.Func([IDL.Text, Wei, IDL.Opt(IDL.Bool)], [Result], []),
+    'set_agent' : IDL.Func([IDL.Text], [Result], []),
+    'set_agent_rules' : IDL.Func([AgentRules], [SetAgentRulesResult], []),
   });
 };
 export const init = ({ IDL }) => { return []; };

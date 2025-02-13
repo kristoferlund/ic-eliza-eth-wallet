@@ -1,7 +1,7 @@
 import { useActor } from '@/actor';
 import { useQuery } from '@tanstack/react-query';
 
-export default function useEthHistory(address?: string) {
+export default function useTxHistory(address?: string) {
   const { actor: backend } = useActor();
   return useQuery({
     queryKey: ['history', address],
@@ -13,7 +13,7 @@ export default function useEthHistory(address?: string) {
       if (json === undefined) {
         throw new Error('Undefined response returned.');
       }
-      if ('result' in json && 'message' in json && json.message === 'OK') {
+      if ('result' in json) {
         return json.result;
       }
       throw new Error('Invalid response returned.');

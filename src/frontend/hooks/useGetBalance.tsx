@@ -1,7 +1,7 @@
 import { useActor } from '@/actor';
 import { useQuery } from '@tanstack/react-query';
 
-export default function useEthBalance(address?: string) {
+export default function useGetBalance(address?: string) {
   const { actor: backend } = useActor();
   return useQuery({
     queryKey: ['balance', address],

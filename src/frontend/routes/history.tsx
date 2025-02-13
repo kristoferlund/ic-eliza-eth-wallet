@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { MainMenu } from '@/components/main-menu';
 import HomeLink from '@/components/home-link';
-import useEthAddress from '@/hooks/useEthAddress';
-import useEthHistory from '@/hooks/useEthHistory';
+import useEthAddress from '@/hooks/useGetAddress';
+import useTxHistory from '@/hooks/useTxHistory';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatUnits } from 'viem';
 
@@ -23,7 +23,7 @@ export function HistoryList() {
     data: history,
     isPending: isFetchingBalance,
     isError,
-  } = useEthHistory(address);
+  } = useTxHistory(address);
 
   if (isFetchingBalance) {
     return <Skeleton className="w-full h-14" />;
@@ -31,7 +31,7 @@ export function HistoryList() {
 
   if (isError) {
     return (
-      <div className="text-4xl font-semibold bg-destructive/30 rounded-lg p-2 text-destructive-foreground">
+      <div className="font-semibold bg-destructive/30 rounded-lg p-2 text-destructive-foreground">
         Couldn't get wallet history.
       </div>
     );

@@ -2,7 +2,7 @@ import HomeLink from '@/components/home-link';
 import { MainMenu } from '@/components/main-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from '@/hooks/use-toast';
-import useEthAddress from '@/hooks/useEthAddress';
+import useEthAddress from '@/hooks/useGetAddress';
 import { createFileRoute } from '@tanstack/react-router';
 import { Copy } from 'lucide-react';
 import QRCode from 'react-qr-code';
