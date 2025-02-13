@@ -47,7 +47,7 @@ export function HistoryList() {
         const isOutgoing = tx.from.toLowerCase() === address?.toLowerCase();
         const counterparty = isOutgoing ? tx.to : tx.from;
         const formattedAddress = `${counterparty.slice(0, 6)}...${counterparty.slice(-4)}`;
-        const formattedAmount = `${formatUnits(BigInt(tx.value), 18)} SepoliaETH`;
+        const formattedAmount = `${formatUnits(BigInt(tx.value), 18)}`;
 
         return (
           <div
