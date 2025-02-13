@@ -1,7 +1,7 @@
 use candid::Principal;
 use ic_stable_structures::storable::Blob;
 
-use crate::AGENTS_TO_WALLETS;
+use crate::AGENT_TO_WALLET;
 
 pub fn principal_to_blob(principal: Principal) -> Blob<29> {
     principal.as_slice()[..29].try_into().unwrap()
@@ -17,7 +17,7 @@ pub fn get_principal_in_scope(as_agent: Option<bool>) -> Result<Principal, Strin
 
     // Otherwise, the principal in scope is the wallet principal linked to the calling agent
     let maybe_principal =
-        AGENTS_TO_WALLETS.with_borrow(|agents| agents.get(&principal_to_blob(caller)));
+        AGENT_TO_WALLET.with_borrow(|agents| agents.get(&principal_to_blob(caller)));
 
     // If no principal is found, the calling agent has not yet been linked to a wallet
     match maybe_principal {

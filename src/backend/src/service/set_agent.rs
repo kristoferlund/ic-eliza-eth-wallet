@@ -1,4 +1,4 @@
-use crate::{auth_guard, utils::principal_to_blob, AGENTS_TO_WALLETS, WALLETS_TO_AGENTS};
+use crate::{auth_guard, utils::principal_to_blob, AGENT_TO_WALLET, WALLET_TO_AGENT};
 use candid::Principal;
 
 #[ic_cdk::update]
@@ -11,12 +11,12 @@ pub async fn set_agent(agent_principal: String) -> Result<String, String> {
     let wallet = principal_to_blob(ic_cdk::caller());
 
     // Link agent to wallet
-    AGENTS_TO_WALLETS.with_borrow_mut(|aw| {
+    AGENT_TO_WALLET.with_borrow_mut(|aw| {
         aw.insert(agent, wallet);
     });
 
     // Link wallet to agent
-    WALLETS_TO_AGENTS.with_borrow_mut(|wa| {
+    WALLET_TO_AGENT.with_borrow_mut(|wa| {
         wa.insert(wallet, agent);
     });
 

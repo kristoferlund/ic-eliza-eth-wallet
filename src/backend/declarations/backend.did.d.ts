@@ -3,8 +3,8 @@ import type { ActorMethod } from '@dfinity/agent';
 import type { IDL } from '@dfinity/candid';
 
 export interface AgentRules {
-  'transactions_per_day' : number,
   'max_transaction_amount' : Wei,
+  'wait_time_minutes' : bigint,
 }
 export type GetAgentResult = { 'Ok' : [] | [string] } |
   { 'Err' : string };

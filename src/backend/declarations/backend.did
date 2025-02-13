@@ -1,7 +1,7 @@
 type Wei = nat; // Base unit of ETH, i.e., 1 ETH = 10^18 Wei.
 
 type AgentRules = record {
-    transactions_per_day: nat32;
+    wait_time_minutes: nat64;
     max_transaction_amount: Wei;
 };
 

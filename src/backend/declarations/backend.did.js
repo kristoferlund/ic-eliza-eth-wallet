@@ -6,8 +6,8 @@ export const idlFactory = ({ IDL }) => {
   });
   const Wei = IDL.Nat;
   const AgentRules = IDL.Record({
-    'transactions_per_day' : IDL.Nat32,
     'max_transaction_amount' : Wei,
+    'wait_time_minutes' : IDL.Nat64,
   });
   const GetAgentRulesResult = IDL.Variant({
     'Ok' : IDL.Opt(AgentRules),

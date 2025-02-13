@@ -62,7 +62,7 @@ type Memory = VirtualMemory<DefaultMemoryImpl>;
 
 #[derive(CandidType, Deserialize, Debug, Clone)]
 struct AgentRules {
-    transactions_per_day: u32,
+    wait_time_minutes: u64,
     max_transaction_amount: Nat,
 }
 
@@ -78,29 +78,38 @@ impl Storable for AgentRules {
     const BOUND: Bound = Bound::Unbounded;
 }
 
-const AGENTS_TO_WALLETS_MEMORY_ID: MemoryId = MemoryId::new(0);
-const WALLETS_TO_AGENTS_MEMORY_ID: MemoryId = MemoryId::new(1);
+const AGENT_TO_WALLET_MEMORY_ID: MemoryId = MemoryId::new(0);
+const WALLET_TO_AGENT_MEMORY_ID: MemoryId = MemoryId::new(1);
 const AGENT_RULES_MEMORY_ID: MemoryId = MemoryId::new(2);
+const AGENT_LATEST_TX_TIME_MEMORY_ID: MemoryId = MemoryId::new(3);
+
+type Timestamp = u64;
 
 thread_local! {
     static MEMORY_MANAGER: RefCell<MemoryManager<DefaultMemoryImpl>> =
         RefCell::new(MemoryManager::init(DefaultMemoryImpl::default()));
 
-    static AGENTS_TO_WALLETS: RefCell<StableBTreeMap<Blob<29>, Blob<29>, Memory>> = RefCell::new(
+    static AGENT_TO_WALLET: RefCell<StableBTreeMap<Blob<29>, Blob<29>, Memory>> = RefCell::new(
         StableBTreeMap::init(
-            MEMORY_MANAGER.with(|m| m.borrow().get(AGENTS_TO_WALLETS_MEMORY_ID)),
+            MEMORY_MANAGER.with(|m| m.borrow().get(AGENT_TO_WALLET_MEMORY_ID)),
         )
     );
 
-    static WALLETS_TO_AGENTS: RefCell<StableBTreeMap<Blob<29>, Blob<29>, Memory>> = RefCell::new(
+    static WALLET_TO_AGENT: RefCell<StableBTreeMap<Blob<29>, Blob<29>, Memory>> = RefCell::new(
         StableBTreeMap::init(
-            MEMORY_MANAGER.with(|m| m.borrow().get(WALLETS_TO_AGENTS_MEMORY_ID)),
+            MEMORY_MANAGER.with(|m| m.borrow().get(WALLET_TO_AGENT_MEMORY_ID)),
         )
     );
 
     static AGENT_RULES: RefCell<StableBTreeMap<Blob<29>, AgentRules, Memory>> = RefCell::new(
         StableBTreeMap::init(
             MEMORY_MANAGER.with(|m| m.borrow().get(AGENT_RULES_MEMORY_ID)),
+        )
+    );
+
+    static AGENT_LATEST_TX_TIME: RefCell<StableBTreeMap<Blob<29>, Timestamp, Memory>> = RefCell::new(
+        StableBTreeMap::init(
+            MEMORY_MANAGER.with(|m| m.borrow().get(AGENT_LATEST_TX_TIME_MEMORY_ID)),
         )
     );
 }

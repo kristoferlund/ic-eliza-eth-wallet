@@ -22,13 +22,13 @@ export default function AgentRulesPage() {
     isError: isSetError,
   } = useSetAgentRules();
 
-  const [transactionsPerDay, setTransactionsPerDay] = useState('0');
+  const [waitTimeMinutes, setWaitTimeMinutes] = useState('0');
   const [maxTransactionAmount, setMaxTransactionAmount] = useState('0');
 
   useEffect(() => {
     if (isPending) return;
     if (agentRules) {
-      setTransactionsPerDay(agentRules.transactions_per_day.toString());
+      setWaitTimeMinutes(agentRules.wait_time_minutes.toString());
       setMaxTransactionAmount(agentRules.max_transaction_amount.toString());
     }
   }, [agentRules, isPending]);
@@ -37,7 +37,7 @@ export default function AgentRulesPage() {
     event.preventDefault();
     setAgentRules({
       max_transaction_amount: BigInt(maxTransactionAmount),
-      transactions_per_day: Number.parseInt(transactionsPerDay),
+      wait_time_minutes: BigInt(waitTimeMinutes),
     });
   };
 
@@ -53,19 +53,19 @@ export default function AgentRulesPage() {
           <div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="transactionsPerDay">
-                  Max transactions per day
+                <Label htmlFor="waitTimeMinutes">
+                  Wait time between transactions (minutes)
                 </Label>
                 <Input
                   type="text"
-                  id="transactionsPerDay"
+                  id="waitTimeMinutes"
                   data-1p-ignore
-                  value={transactionsPerDay}
-                  onChange={(e) => setTransactionsPerDay(e.target.value)}
+                  value={waitTimeMinutes}
+                  onChange={(e) => setWaitTimeMinutes(e.target.value)}
                 />
               </div>
               <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="transactionsPerDay">
+                <Label htmlFor="waitTimeMinutes">
                   Max transaction amount (Wei)
                 </Label>
                 <Input

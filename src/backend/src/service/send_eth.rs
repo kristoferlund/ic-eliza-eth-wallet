@@ -1,8 +1,7 @@
-use std::{cell::RefCell, collections::HashMap};
-
 use crate::{
     auth_guard, create_derivation_path, get_ecdsa_key_name, get_rpc_service,
-    utils::get_principal_in_scope,
+    utils::{get_principal_in_scope, principal_to_blob},
+    AGENT_LATEST_TX_TIME, AGENT_RULES,
 };
 use alloy::{
     network::{EthereumWallet, TransactionBuilder, TxSigner},
@@ -13,6 +12,7 @@ use alloy::{
     transports::icp::IcpConfig,
 };
 use candid::Nat;
+use std::{cell::RefCell, collections::HashMap};
 
 // To minimize the number of nonce requests, we store the latest nonce for each wallet
 // address in a thread-local HashMap.
@@ -31,6 +31,36 @@ async fn send_eth(
 
     // From address is the method caller or the principal managed by the agent
     let from_principal = get_principal_in_scope(as_agent)?;
+
+    // If the caller is an agent, make sure the transaction is allowed
+    if as_agent.is_some_and(|a| a) {
+        let agent_rules = AGENT_RULES.with_borrow(|ar| ar.get(&principal_to_blob(from_principal)));
+
+        match agent_rules {
+            Some(rules) => {
+                if amount > rules.max_transaction_amount {
+                    return Err(
+                        "Transaction amount exceeds agent's max_transaction_amount.".to_string()
+                    );
+                }
+
+                let now = ic_cdk::api::time();
+                let latest_tx_time = AGENT_LATEST_TX_TIME
+                    .with_borrow(|ltx| ltx.get(&principal_to_blob(ic_cdk::caller())))
+                    .unwrap_or(0);
+
+                if now < latest_tx_time + rules.wait_time_minutes * 60 * 1_000_000_000 {
+                    return Err(format!(
+                        "Transaction too soon. Wait at least {} minutes.",
+                        rules.wait_time_minutes,
+                    ));
+                }
+            }
+            None => {
+                return Err("No agent rules set, action denied by default.".to_string());
+            }
+        }
+    }
 
     // Make sure we have a correct to address
     let to_address = Address::parse_checksummed(to_address, None).map_err(|e| e.to_string())?;
@@ -92,6 +122,14 @@ async fn send_eth(
                     ADDRESS_NONCES.with_borrow_mut(|nonces| {
                         nonces.insert(from_address, tx.nonce);
                     });
+
+                    // If the caller is an agent, save the transaction time
+                    if as_agent.is_some_and(|a| a) {
+                        AGENT_LATEST_TX_TIME.with_borrow_mut(|ltx| {
+                            ltx.insert(principal_to_blob(ic_cdk::caller()), ic_cdk::api::time());
+                        });
+                    }
+
                     Ok(format!("{:?}", tx))
                 }
                 None => Err("Could not get transaction.".to_string()),
