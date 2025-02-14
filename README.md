@@ -1,12 +1,15 @@
-# A multiuser Ethereum wallet built on ICP
+# An ICP multiuser Ethereum wallet that can delegate access to agents
 
-This multiuser Ethereum wallet uses allows the user to generate an Ethereum
-address by logging in with their Internet Identity. The user can then send and
-receive Ethereum to other users.
+This multiuser Ethereum wallet uses allows the user to generate an Ethereum address by logging in with their Internet Identity. The user can then send and receive Ethereum to other users.
 
-The backend consists of a Rust canister uses the
-[ic-alloy](https://github.com/ic-alloy) library to interact with the Ethereum
-blockchain. The frontend is built with React and Vite.
+The wallet also allows the user to delegate access to an (AI) agent. The agent can then send Ethereum on behalf of the user. The user can revoke access at any time. In addition to delegating access, the user can specify som rules that the AI agent must follow when interacting with the wallet:
+
+1. `max_transaction_amount`: Limits the maximum amount of ETH that can be transferred in a single transaction.
+2. `wait_time_minutes`: Enforces a cooldown period between transactions.
+
+This is companion project to the [ic-eliza-eth-wallet-plugin](https://github.com/kristoferlund/ic-eliza-eth-wallet-agent) demo plugin for the Eliza AI agent framework. The plugin allows the Eliza AI agent to interact with an Ethereum wallet deployed on the Internet Computer.
+
+The backend consists of a Rust canister uses the [ic-alloy](https://github.com/ic-alloy) library to interact with the Ethereum blockchain. The frontend is built with React and Vite.
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -17,8 +20,6 @@ blockchain. The frontend is built with React and Vite.
 
 > [!TIP]
 > Use this repository as a starting point for building your own multiuser Ethereum wallet on the Internet Computer.
-> 
-> Live demo: <https://7vics-6yaaa-aaaai-ap7lq-cai.icp0.io>
 
 ![](./media/screenshot.png)
 
@@ -67,7 +68,7 @@ Pre-requisites:
 Once Docker, Visual Studio Code and the Dev Containers Extension are installed,
 you can open the project in a container by clicking the button below:
 
-[![Open locally in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/ic-alloy/ic-alloy-basic-wallet)
+[![Open locally in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/kristoferlund/ic-eliza-eth-wallet)
 
 ### 2. Setup manually
 
@@ -206,13 +207,13 @@ details.
 Contributions are welcome! Please open an issue or submit a pull request if you
 have any suggestions or improvements.
 
-[contributors-shield]: https://img.shields.io/github/contributors/ic-alloy/ic-alloy-basic-wallet.svg?style=for-the-badge
-[contributors-url]: https://github.com/ic-alloy/ic-alloy-basic-wallet/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/ic-alloy/ic-alloy-basic-wallet.svg?style=for-the-badge
-[forks-url]: https://github.com/ic-alloy/ic-alloy-basic-wallet/network/members
-[stars-shield]: https://img.shields.io/github/stars/ic-alloy/ic-alloy-basic-wallet?style=for-the-badge
-[stars-url]: https://github.com/ic-alloy/ic-alloy-basic-wallet/stargazers
-[issues-shield]: https://img.shields.io/github/issues/ic-alloy/ic-alloy-basic-wallet.svg?style=for-the-badge
-[issues-url]: https://github.com/ic-alloy/ic-alloy-basic-wallet/issues
-[license-shield]: https://img.shields.io/github/license/ic-alloy/ic-alloy-basic-wallet.svg?style=for-the-badge
-[license-url]: https://github.com/ic-alloy/ic-alloy-basic-wallet/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/kristoferlund/ic-eliza-eth-wallet.svg?style=for-the-badge
+[contributors-url]: https://github.com/kristoferlund/ic-eliza-eth-wallet/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/kristoferlund/ic-eliza-eth-wallet.svg?style=for-the-badge
+[forks-url]: https://github.com/kristoferlund/ic-eliza-eth-wallet/network/members
+[stars-shield]: https://img.shields.io/github/stars/kristoferlund/ic-eliza-eth-wallet?style=for-the-badge
+[stars-url]: https://github.com/kristoferlund/ic-eliza-eth-wallet/stargazers
+[issues-shield]: https://img.shields.io/github/issues/kristoferlund/ic-eliza-eth-wallet.svg?style=for-the-badge
+[issues-url]: https://github.com/kristoferlund/ic-eliza-eth-wallet/issues
+[license-shield]: https://img.shields.io/github/license/kristoferlund/ic-eliza-eth-wallet.svg?style=for-the-badge
+[license-url]: https://github.com/kristoferlund/ic-eliza-eth-wallet/blob/master/LICENSE.txt
